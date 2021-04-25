@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe 'merchant dashboard' do
   before :each do
     @merchant1 = Merchant.create!(name: 'Hair Care')
+    @merchant2 = Merchant.create!(name: 'Nail Salon')
 
     @customer_1 = Customer.create!(first_name: 'Joey', last_name: 'Smith')
     @customer_2 = Customer.create!(first_name: 'Cecilia', last_name: 'Jones')
@@ -36,6 +37,11 @@ RSpec.describe 'merchant dashboard' do
     @transaction5 = Transaction.create!(credit_card_number: 102938, result: 1, invoice_id: @invoice_6.id)
     @transaction6 = Transaction.create!(credit_card_number: 879799, result: 1, invoice_id: @invoice_7.id)
     @transaction7 = Transaction.create!(credit_card_number: 203942, result: 1, invoice_id: @invoice_2.id)
+
+    @discount1 = create(:discount, merchant:@merchant1)
+    @discount2 = create(:discount, merchant:@merchant1)
+    @discount3 = create(:discount, merchant:@merchant2)
+    @discount4 = create(:discount, merchant:@merchant1)
 
     visit merchant_dashboard_index_path(@merchant1)
   end
@@ -102,5 +108,16 @@ RSpec.describe 'merchant dashboard' do
     expect(current_path).to eq("/merchant/#{@merchant1.id}/discounts")
     expect(page).to have_content(@merchant1.name)
 
+    within "#discount-#{@discount1.id}" do
+      expect(page).to have_content(@discount1.percent_off)
+    end
+
+    within "#discount-#{@discount2.id}" do
+      expect(page).to have_content(@discount2.min_threshold)
+    end
+
+    within "#discount-#{@discount4.id}" do
+      expect(page).to have_content(@discount4.percent_off)
+    end
   end
 end

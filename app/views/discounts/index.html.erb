@@ -1,1 +1,8 @@
 <h1><%= @merchant.name %>'s Discounts</h1>
+<% @merchant.discounts.each do |discount| %>
+ <section id='discount-<%= discount.id %>'>
+  <%= discount.percent_off %> percent off
+  <%= discount.min_threshold %> minimum items
+  <%= link_to "Link to this Discount", merchant_discount_path(@merchant, discount) %><br>
+  </section>
+<% end %>
