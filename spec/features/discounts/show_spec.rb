@@ -14,7 +14,7 @@ RSpec.describe 'discounts index page', type: :feature do
     expect(page).to have_content(@discount1.percent_off)
     expect(page).to have_content(@discount1.min_threshold)
 
-    expect(page).to have_button("Back to All Discounts")
+    expect(page).to have_link("Back to All Discounts")
 
     click_link "Back to All Discounts"
 
