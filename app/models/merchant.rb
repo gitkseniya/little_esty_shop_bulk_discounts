@@ -7,7 +7,6 @@ class Merchant < ApplicationRecord
   has_many :transactions, through: :invoices
   has_many :discounts
 
-
   enum status: [:enabled, :disabled]
 
   def favorite_customers
