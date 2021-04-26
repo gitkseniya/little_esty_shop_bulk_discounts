@@ -16,16 +16,36 @@ RSpec.describe Invoice, type: :model do
   end
 
   describe "instance methods" do
-    it "total_revenue" do
-      @merchant1 = Merchant.create!(name: 'Hair Care')
-      @item_1 = Item.create!(name: "Shampoo", description: "This washes your hair", unit_price: 10, merchant_id: @merchant1.id, status: 1)
-      @item_8 = Item.create!(name: "Butterfly Clip", description: "This holds up your hair but in a clip", unit_price: 5, merchant_id: @merchant1.id)
-      @customer_1 = Customer.create!(first_name: 'Joey', last_name: 'Smith')
-      @invoice_1 = Invoice.create!(customer_id: @customer_1.id, status: 2, created_at: "2012-03-27 14:54:09")
-      @ii_1 = InvoiceItem.create!(invoice_id: @invoice_1.id, item_id: @item_1.id, quantity: 9, unit_price: 10, status: 2)
-      @ii_11 = InvoiceItem.create!(invoice_id: @invoice_1.id, item_id: @item_8.id, quantity: 1, unit_price: 10, status: 1)
+    before :each do
+      @merchant1 = create(:merchant)
 
-      expect(@invoice_1.total_revenue).to eq(100)
+      @cupcake = create(:item, merchant: @merchant1)
+      @canoli = create(:item, merchant: @merchant1)
+      @cake = create(:item, merchant: @merchant1)
+
+      @discount1 = create(:discount, merchant: @merchant1, percent_off: 0.10, min_threshold: 5)
+      @discount2 = create(:discount, merchant: @merchant1, percent_off: 0.15, min_threshold: 10)
+      @discount3 = create(:discount, merchant: @merchant1, percent_off: 0.20, min_threshold: 15)
+
+      @klaudia = create(:customer)
+      @olivia = create(:customer)
+
+      @invoice1 = create(:invoice, customer: @klaudia)
+      @invoice2 = create(:invoice, customer: @olivia)
+
+      @invoice_item1 = create(:invoice_item, invoice: @invoice1, item: @cupcake, quantity: 11, unit_price: 6)
+      @invoice_item2 = create(:invoice_item, invoice: @invoice1, item: @canoli, quantity: 18, unit_price: 4)
+      @invoice_item3 = create(:invoice_item, invoice: @invoice2, item: @cake, quantity: 1, unit_price: 28)
+    end
+
+    it "can calculate total_revenue" do
+      expect(@invoice1.total_revenue).to eq(138)
+      expect(@invoice2.total_revenue).to eq(28)
+    end
+
+    it 'total_discount' do
+      expect(@invoice1.discounted_revenue).to eq(113.70)
+      expect(@invoice2.discounted_revenue).to eq(28.00)
     end
   end
 end
