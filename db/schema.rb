@@ -30,7 +30,6 @@ ActiveRecord::Schema.define(version: 2021_04_24_211954) do
     t.bigint "merchant_id"
     t.decimal "percent_off"
     t.integer "min_threshold"
-    t.string "status"
     t.index ["merchant_id"], name: "index_discounts_on_merchant_id"
   end
 
