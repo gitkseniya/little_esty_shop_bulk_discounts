@@ -15,17 +15,16 @@ class Invoice < ApplicationRecord
     invoice_items.sum("unit_price * quantity")
   end
 
-  def total_discount
+  def total_rev_discount
     invoice_items
     .joins(:discounts)
     .where('discounts.min_threshold <= invoice_items.quantity')
-    .select('discounts.*, invoice_items.*, (invoice_items.quantity * invoice_items.unit_price * discounts.percent_off) AS total_discount')
-    .order('total_discount desc')
-    .distinct
+    .select('discounts.*, invoice_items.*, (invoice_items.quantity * invoice_items.unit_price * discounts.percent_off / 100) AS total_discount')
+    .order('discounts.percent_off desc')
   end
 
   def discounted_revenue
-    discount = total_discount.uniq.sum(&:total_discount)
+    discount = total_rev_discount.uniq.sum(&:total_discount)
     (total_revenue - discount).to_f.round(2)
   end
 end

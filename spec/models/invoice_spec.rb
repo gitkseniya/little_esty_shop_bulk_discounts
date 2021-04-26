@@ -23,9 +23,9 @@ RSpec.describe Invoice, type: :model do
       @canoli = create(:item, merchant: @merchant1)
       @cake = create(:item, merchant: @merchant1)
 
-      @discount1 = create(:discount, merchant: @merchant1, percent_off: 0.10, min_threshold: 5)
-      @discount2 = create(:discount, merchant: @merchant1, percent_off: 0.15, min_threshold: 10)
-      @discount3 = create(:discount, merchant: @merchant1, percent_off: 0.20, min_threshold: 15)
+      @discount1 = create(:discount, merchant: @merchant1, percent_off: 10, min_threshold: 5)
+      @discount2 = create(:discount, merchant: @merchant1, percent_off: 15, min_threshold: 10)
+      @discount3 = create(:discount, merchant: @merchant1, percent_off: 20, min_threshold: 15)
 
       @klaudia = create(:customer)
       @olivia = create(:customer)
