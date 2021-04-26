@@ -1,7 +1,5 @@
 <h1><%= @merchant.name %>'s Discounts</h1>
-<% @discounts.each do |discount| %>
-  Percent off: <%= discount.percent_off %><br>
-  Minimum threshold: <%= discount.min_threshold %><br><br>
-<% end %>
+  Percent off: <%= @discount.percent_off %><br>
+  Minimum threshold: <%= @discount.min_threshold %><br><br>
 
 <%= link_to('Back to All Discounts', merchant_discounts_path(@merchant), method: :get) %><br>
