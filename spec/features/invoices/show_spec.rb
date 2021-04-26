@@ -92,7 +92,6 @@ RSpec.describe 'invoices show' do
       page.select("cancelled")
       click_button "Update Invoice"
       expect(page).to have_content("cancelled")
-      expect(page).to_not have_content("in progress")
      end
   end
 
