@@ -10,12 +10,6 @@ FactoryBot.define do
     customer
   end
 
-  factory :merchant do
-    name {Faker::Space.galaxy}
-    invoices
-    items
-  end
-
   factory :item do
     name {Faker::Coffee.variety}
     description {Faker::Hipster.sentence}
