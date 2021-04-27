@@ -2,9 +2,10 @@
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <p class="navbar-text"><%= @merchant.name %></p>
     <ul class="nav navbar-nav">
-      <li><%= link_to 'Dashboard', merchant_dashboard_index_path, class: 'link_1', style: 'pull-right' %>
-      <li><%= link_to 'Items', merchant_items_path, class: 'link_1', style: 'pull-right' %>
-      <li><%= link_to 'Invoices', merchant_invoices_path, class: 'link_1', style: 'pull-right' %>
+      <a class="nav-item nav-link"><%= link_to 'Dashboard', merchant_dashboard_index_path, class: 'link_1', style: 'pull-right' %>
+      <a class="nav-item nav-link"><%= link_to 'Items', merchant_items_path, class: 'link_1', style: 'pull-right' %>
+      <a class="nav-item nav-link"><%= link_to 'Invoices', merchant_invoices_path %>
+      <a class="nav-item nav-link"><%= link_to "Discounts", merchant_discounts_path(@merchant) %>
     </ul>
   </nav>
 </div>
@@ -34,6 +35,5 @@
     </section>
   </ul>
 
-  <%= link_to "Discounts", merchant_discounts_path(@merchant) %>
 
 </body>
