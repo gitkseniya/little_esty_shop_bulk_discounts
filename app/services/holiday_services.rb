@@ -6,7 +6,7 @@ class HolidayServices
     all_holidays = get_url("https://date.nager.at/Api/v2/NextPublicHolidays/US")
 
     all_holidays.map do |holiday|
-      holiday[:name]
+      "#{holiday[:name]}: #{holiday[:date]}"
     end.first(3)
   end
 
