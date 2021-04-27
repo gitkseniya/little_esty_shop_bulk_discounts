@@ -4,8 +4,7 @@
   <%= discount.percent_off %> percent off
   <%= discount.min_threshold %> minimum items
   <%= link_to "Details", merchant_discount_path(@merchant, discount) %>
-  <%= button_to "Delete", merchant_discount_path(@merchant, discount), method: :delete, params: {merchant_id: @merchant.id, discount_id: discount.id} %>  
-
+  <%= button_to "Delete", merchant_discount_path(@merchant, discount), method: :delete, params: {merchant_id: @merchant.id, discount_id: discount.id} %>
   <br>
   </section>
 <% end %>
