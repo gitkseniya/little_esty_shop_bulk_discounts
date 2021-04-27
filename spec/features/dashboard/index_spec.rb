@@ -119,5 +119,8 @@ RSpec.describe 'merchant dashboard' do
     within "#discount-#{@discount4.id}" do
       expect(page).to have_content(@discount4.percent_off)
     end
+
+    expect(page).to have_link("Details")
+    expect(page).to have_link("Create a new discount")
   end
 end
